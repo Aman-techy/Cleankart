@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Clean Kart</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f4f8;
+            color: #1a202c;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 4rem auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            padding: 2rem;
+        }
+        h1 {
+            text-align: center;
+            color: #3182ce;
+        }
+        .login {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .login input {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-right: 0.5rem;
+        }
+        .login button {
+            padding: 0.5rem 1.5rem;
+            background: #3182ce;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .hidden { display: none; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+        }
+        th {
+            background: #3182ce;
+            color: #fff;
+            font-weight: 700;
+        }
+        tr:last-child td { border-bottom: none; }
+        .save-btn {
+            margin-top: 1.5rem;
+            background: #3182ce;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 2rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+        .success {
+            color: #3182ce;
+            text-align: center;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Panel</h1>
+        <div class="login" id="loginBox">
+            <input type="password" id="adminPass" placeholder="Enter admin password">
+            <input type="password" id="githubToken" placeholder="GitHub API Token (never share)">
+            <button onclick="checkPass()">Login</button>
+            <div id="loginError" style="color:red; margin-top:0.5rem;"></div>
+        </div>
+        <div id="adminContent" class="hidden">
+            <h2>Edit Price List</h2>
+            <form id="priceForm">
+                <table id="editTable">
+                    <thead>
+                        <tr><th>Item</th><th>Price (₹)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>T-Shirt</td><td><input type="text" name="T-Shirt" value="95"></td></tr>
+                        <tr><td>Shirt</td><td><input type="text" name="Shirt" value="100"></td></tr>
+                        <tr><td>Trousers / Jeans</td><td><input type="text" name="Trousers / Jeans" value="95"></td></tr>
+                        <tr><td>Suit</td><td><input type="text" name="Suit" value="200"></td></tr>
+                        <tr><td>Blazer</td><td><input type="text" name="Blazer" value="180-260"></td></tr>
+                        <tr><td>Jacket</td><td><input type="text" name="Jacket" value="300-360"></td></tr>
+                        <tr><td>Leather Jacket</td><td><input type="text" name="Leather Jacket" value="350-500"></td></tr>
+                        <tr><td>Hoodie / Sweatshirt</td><td><input type="text" name="Hoodie / Sweatshirt" value="160"></td></tr>
+                        <tr><td>Cardigan / Pullover</td><td><input type="text" name="Cardigan / Pullover" value="140-200"></td></tr>
+                        <tr><td>Sherwani</td><td><input type="text" name="Sherwani" value="450-750"></td></tr>
+                        <tr><td>Kurta</td><td><input type="text" name="Kurta" value="120-200"></td></tr>
+                        <tr><td>Overcoat / Long Coat</td><td><input type="text" name="Overcoat / Long Coat" value="250-300"></td></tr>
+                        <tr><td>Top</td><td><input type="text" name="Top" value="100"></td></tr>
+                        <tr><td>Skirt</td><td><input type="text" name="Skirt" value="120-150"></td></tr>
+                        <tr><td>Trouser / Slacks</td><td><input type="text" name="Trouser / Slacks" value="100"></td></tr>
+                        <tr><td>Shawl</td><td><input type="text" name="Shawl" value="180-250"></td></tr>
+                        <tr><td>Pashmina Shawl</td><td><input type="text" name="Pashmina Shawl" value="350-600"></td></tr>
+                        <tr><td>Formal Suit</td><td><input type="text" name="Formal Suit" value="280"></td></tr>
+                        <tr><td>Blazer</td><td><input type="text" name="Blazer" value="200"></td></tr>
+                        <tr><td>Long Coat</td><td><input type="text" name="Long Coat" value="250-500"></td></tr>
+                        <tr><td>Dress / Haute Couture</td><td><input type="text" name="Dress / Haute Couture" value="250-600"></td></tr>
+                        <tr><td>Plain Suit</td><td><input type="text" name="Plain Suit" value="200-250"></td></tr>
+                        <tr><td>Suit with Embroidery</td><td><input type="text" name="Suit with Embroidery" value="270-400"></td></tr>
+                        <tr><td>Saree Plain / Silk</td><td><input type="text" name="Saree Plain / Silk" value="200"></td></tr>
+                        <tr><td>Saree with Embroidery</td><td><input type="text" name="Saree with Embroidery" value="280-700"></td></tr>
+                        <tr><td>Blouse</td><td><input type="text" name="Blouse" value="90-110"></td></tr>
+                        <tr><td>Lehenga</td><td><input type="text" name="Lehenga" value="400-1000"></td></tr>
+                        <tr><td>Hand Towel</td><td><input type="text" name="Hand Towel" value="80"></td></tr>
+                        <tr><td>Table Cover</td><td><input type="text" name="Table Cover" value="100-180"></td></tr>
+                        <tr><td>Cushion Cover</td><td><input type="text" name="Cushion Cover" value="40-110"></td></tr>
+                        <tr><td>Bed Sheet (Single / Double)</td><td><input type="text" name="Bed Sheet (Single / Double)" value="140-180"></td></tr>
+                        <tr><td>Bed Spread (Single / Double)</td><td><input type="text" name="Bed Spread (Single / Double)" value="240-260"></td></tr>
+                        <tr><td>Blanket / Quilt Single</td><td><input type="text" name="Blanket / Quilt Single" value="280"></td></tr>
+                        <tr><td>Blanket / Quilt Double</td><td><input type="text" name="Blanket / Quilt Double" value="320-340"></td></tr>
+                        <tr><td>Curtain without Double (Per Panel)</td><td><input type="text" name="Curtain without Double (Per Panel)" value="200-240"></td></tr>
+                        <tr><td>Curtain with Lining (Per Panel)</td><td><input type="text" name="Curtain with Lining (Per Panel)" value="240-500"></td></tr>
+                        <tr><td>Carpet / Rugs (Per Sq. Ft)</td><td><input type="text" name="Carpet / Rugs (Per Sq. Ft)" value="120-250"></td></tr>
+                        <tr><td>Sofa (Per seat)</td><td><input type="text" name="Sofa (Per seat)" value="300-600"></td></tr>
+                    </tbody>
+                </table>
+                <button type="submit" class="save-btn">Save Changes</button>
+            </form>
+            <div id="saveMsg" class="success hidden">Prices saved (locally for now).</div>
+        </div>
+    </div>
+    <script>
+    async function loadPrices() {
+        try {
+            const res = await fetch('/prices.json');
+            const prices = await res.json();
+            Array.from(document.querySelectorAll('#editTable input')).forEach(function(input) {
+                if (prices[input.name] !== undefined) input.value = prices[input.name];
+            });
+        } catch (e) { /* fallback: do nothing */ }
+    }
+    function checkPass() {
+        var pass = document.getElementById('adminPass').value;
+        if (pass === 'Clean@1609') {
+            document.getElementById('loginBox').classList.add('hidden');
+            document.getElementById('adminContent').classList.remove('hidden');
+            loadPrices();
+        } else {
+            document.getElementById('loginError').textContent = 'Incorrect password.';
+        }
+    }
+    async function updatePricesOnGitHub(prices, token) {
+        const repo = "Aman-techy/Cleankart";
+        const path = "prices.json";
+        const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+        // Get current file SHA
+        const res = await fetch(apiUrl, {
+            headers: { Authorization: `token ${token}` }
+        });
+        const data = await res.json();
+        const sha = data.sha;
+        // Prepare new content
+        const content = btoa(JSON.stringify(prices, null, 2));
+        // Update file
+        const updateRes = await fetch(apiUrl, {
+            method: "PUT",
+            headers: {
+                Authorization: `token ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: "Update prices.json from admin panel",
+                content,
+                sha
+            })
+        });
+        if (updateRes.ok) {
+            document.getElementById('saveMsg').textContent = 'Prices saved and updated live!';
+        } else {
+            document.getElementById('saveMsg').textContent = 'Error updating prices.json!';
+        }
+        document.getElementById('saveMsg').classList.remove('hidden');
+        setTimeout(function(){ document.getElementById('saveMsg').classList.add('hidden'); }, 3000);
+    }
+    document.getElementById('priceForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var prices = {};
+        Array.from(document.querySelectorAll('#editTable input')).forEach(function(input) {
+            prices[input.name] = input.value;
+        });
+        localStorage.setItem('cleankart_prices', JSON.stringify(prices));
+        var token = document.getElementById('githubToken').value;
+        if (token) {
+            updatePricesOnGitHub(prices, token);
+        } else {
+            document.getElementById('saveMsg').textContent = 'Prices saved locally. Enter GitHub token for live update.';
+            document.getElementById('saveMsg').classList.remove('hidden');
+            setTimeout(function(){ document.getElementById('saveMsg').classList.add('hidden'); }, 3000);
+        }
+    });
+    </script>
+</body>
+</html>

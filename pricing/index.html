@@ -11,7 +11,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
+        <!-- Header -->
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.getElementById('viewPricesBtn');
+            var table = document.getElementById('fullPriceTable');
+            if (btn && table) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    table.style.display = (table.style.display === 'none' || table.style.display === '') ? 'block' : 'none';
+                });
+            }
+        });
+        </script>
     <header class="header">
         <nav class="nav">
             <div class="nav-container">
@@ -60,12 +72,13 @@
             <p class="section-subtitle">Simple, transparent pricing for all your dry cleaning needs</p>
             
             <div class="pricing-grid">
+                <!-- Featured Prices Updated -->
                 <div class="pricing-card">
                     <div class="pricing-icon">
                         <i class="fas fa-tshirt"></i>
                     </div>
-                    <h3>Shirt</h3>
-                    <div class="price">₹50</div>
+                    <h3>T-Shirt</h3>
+                    <div class="price">₹95</div>
                     <ul class="pricing-features">
                         <li><i class="fas fa-check"></i> Professional pressing</li>
                         <li><i class="fas fa-check"></i> Starch application</li>
@@ -76,15 +89,15 @@
 
                 <div class="pricing-card">
                     <div class="pricing-icon">
-                        <i class="fas fa-walking"></i>
+                        <i class="fas fa-shirt"></i>
                     </div>
-                    <h3>Trouser</h3>
-                    <div class="price">₹70</div>
+                    <h3>Shirt</h3>
+                    <div class="price">₹100</div>
                     <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Sharp creasing</li>
-                        <li><i class="fas fa-check"></i> Pocket cleaning</li>
-                        <li><i class="fas fa-check"></i> Hem protection</li>
-                        <li><i class="fas fa-check"></i> Wrinkle removal</li>
+                        <li><i class="fas fa-check"></i> Professional pressing</li>
+                        <li><i class="fas fa-check"></i> Starch application</li>
+                        <li><i class="fas fa-check"></i> Button tightening</li>
+                        <li><i class="fas fa-check"></i> Spot cleaning</li>
                     </ul>
                 </div>
 
@@ -93,8 +106,8 @@
                     <div class="pricing-icon">
                         <i class="fas fa-female"></i>
                     </div>
-                    <h3>Saree</h3>
-                    <div class="price">₹150</div>
+                    <h3>Saree Plain / Silk</h3>
+                    <div class="price">₹200</div>
                     <ul class="pricing-features">
                         <li><i class="fas fa-check"></i> Gentle fabric care</li>
                         <li><i class="fas fa-check"></i> Border protection</li>
@@ -108,8 +121,8 @@
                     <div class="pricing-icon">
                         <i class="fas fa-user-tie"></i>
                     </div>
-                    <h3>Suit (2-piece)</h3>
-                    <div class="price">₹300</div>
+                    <h3>Suit</h3>
+                    <div class="price">₹200</div>
                     <ul class="pricing-features">
                         <li><i class="fas fa-check"></i> Complete suit care</li>
                         <li><i class="fas fa-check"></i> Shape retention</li>
@@ -123,7 +136,7 @@
                         <i class="fas fa-coat-arms"></i>
                     </div>
                     <h3>Jacket</h3>
-                    <div class="price">₹250</div>
+                    <div class="price">₹300</div>
                     <ul class="pricing-features">
                         <li><i class="fas fa-check"></i> Specialized cleaning</li>
                         <li><i class="fas fa-check"></i> Zipper maintenance</li>
@@ -136,8 +149,8 @@
                     <div class="pricing-icon">
                         <i class="fas fa-gem"></i>
                     </div>
-                    <h3>Dress</h3>
-                    <div class="price">₹180</div>
+                    <h3>Dress / Haute Couture</h3>
+                    <div class="price">₹250</div>
                     <ul class="pricing-features">
                         <li><i class="fas fa-check"></i> Delicate handling</li>
                         <li><i class="fas fa-check"></i> Embellishment care</li>
@@ -234,6 +247,55 @@
                         <a href="#" class="view-prices-btn" id="viewPricesBtn">
                             <i class="fas fa-eye"></i>
                             View Full Price List
+                        </a>
+                        <a href="/pricing/full-price-list.html" class="download-btn" style="margin-top:1rem;">Download Full Price List as PDF</a>
+                        <div id="fullPriceTable" style="display:none; margin-top:2rem;">
+                            <table style="width:100%; border-collapse:collapse;">
+                                <thead>
+                                    <tr><th>Item</th><th>Price (₹)</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>T-Shirt</td><td>95</td></tr>
+                                    <tr><td>Shirt</td><td>100</td></tr>
+                                    <tr><td>Trousers / Jeans</td><td>95</td></tr>
+                                    <tr><td>Suit</td><td>200</td></tr>
+                                    <tr><td>Blazer</td><td>180-260</td></tr>
+                                    <tr><td>Jacket</td><td>300-360</td></tr>
+                                    <tr><td>Leather Jacket</td><td>350-500</td></tr>
+                                    <tr><td>Hoodie / Sweatshirt</td><td>160</td></tr>
+                                    <tr><td>Cardigan / Pullover</td><td>140-200</td></tr>
+                                    <tr><td>Sherwani</td><td>450-750</td></tr>
+                                    <tr><td>Kurta</td><td>120-200</td></tr>
+                                    <tr><td>Overcoat / Long Coat</td><td>250-300</td></tr>
+                                    <tr><td>Top</td><td>100</td></tr>
+                                    <tr><td>Skirt</td><td>120-150</td></tr>
+                                    <tr><td>Trouser / Slacks</td><td>100</td></tr>
+                                    <tr><td>Shawl</td><td>180-250</td></tr>
+                                    <tr><td>Pashmina Shawl</td><td>350-600</td></tr>
+                                    <tr><td>Formal Suit</td><td>280</td></tr>
+                                    <tr><td>Blazer</td><td>200</td></tr>
+                                    <tr><td>Long Coat</td><td>250-500</td></tr>
+                                    <tr><td>Dress / Haute Couture</td><td>250-600</td></tr>
+                                    <tr><td>Plain Suit</td><td>200-250</td></tr>
+                                    <tr><td>Suit with Embroidery</td><td>270-400</td></tr>
+                                    <tr><td>Saree Plain / Silk</td><td>200</td></tr>
+                                    <tr><td>Saree with Embroidery</td><td>280-700</td></tr>
+                                    <tr><td>Blouse</td><td>90-110</td></tr>
+                                    <tr><td>Lehenga</td><td>400-1000</td></tr>
+                                    <tr><td>Hand Towel</td><td>80</td></tr>
+                                    <tr><td>Table Cover</td><td>100-180</td></tr>
+                                    <tr><td>Cushion Cover</td><td>40-110</td></tr>
+                                    <tr><td>Bed Sheet (Single / Double)</td><td>140-180</td></tr>
+                                    <tr><td>Bed Spread (Single / Double)</td><td>240-260</td></tr>
+                                    <tr><td>Blanket / Quilt Single</td><td>280</td></tr>
+                                    <tr><td>Blanket / Quilt Double</td><td>320-340</td></tr>
+                                    <tr><td>Curtain without Double (Per Panel)</td><td>200-240</td></tr>
+                                    <tr><td>Curtain with Lining (Per Panel)</td><td>240-500</td></tr>
+                                    <tr><td>Carpet / Rugs (Per Sq. Ft)</td><td>120-250</td></tr>
+                                    <tr><td>Sofa (Per seat)</td><td>300-600</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
                         </a>
                     </div>
                     <div class="price-list-visual">

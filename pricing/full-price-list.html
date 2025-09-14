@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean Kart Full Price List</title>
+    <link rel="canonical" href="https://mycleankart.in/pricing/full-price-list.html">
+    <meta name="description" content="Download the complete Clean Kart dry cleaning price list as PDF.">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f4f8;
+            color: #1a202c;
+            margin: 0;
+            padding: 0;
+        }
+        .logo {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .logo img {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+        }
+        th {
+            background: #3182ce;
+            color: #fff;
+            font-weight: 700;
+        }
+        tr:last-child td { border-bottom: none; }
+        .download-btn {
+            display: block;
+            margin: 2rem auto 0 auto;
+            padding: 0.75rem 2rem;
+            background: #3182ce;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="/logo.png" alt="Clean Kart Logo">
+            <div class="business-name">Clean Kart</div>
+        </div>
+        <table id="priceTable">
+            <thead>
+                <tr><th>Item</th><th>Price (₹)</th></tr>
+            </thead>
+            <tbody id="priceBody">
+            </tbody>
+        </table>
+        <div class="call-to-action">Book your free pickup now - <b>8287382070</b></div>
+        <a href="#" class="download-btn" id="downloadPdfBtn">Download as PDF</a>
+    </div>
+    <script>
+        async function loadPrices() {
+                try {
+                        const res = await fetch('/prices.json');
+                        const prices = await res.json();
+                        const priceBody = document.getElementById('priceBody');
+                        priceBody.innerHTML = '';
+                        Object.keys(prices).forEach(function(item) {
+                                const tr = document.createElement('tr');
+                                tr.innerHTML = `<td>${item}</td><td>${prices[item]}</td>`;
+                                priceBody.appendChild(tr);
+                        });
+                } catch (e) {}
+        }
+        loadPrices();
+
+        document.getElementById('downloadPdfBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                var doc = new window.jspdf.jsPDF({orientation: 'portrait', unit: 'pt', format: 'a4'});
+                doc.setFont('Inter', 'normal');
+                doc.setFontSize(22);
+                doc.setTextColor(49,130,206);
+                doc.text('Clean Kart', 40, 60);
+                var img = new Image();
+                img.src = '/logo.png';
+                img.onload = function() {
+                    doc.addImage(img, 'PNG', 400, 20, 80, 80);
+                    doc.setFontSize(12);
+                    doc.setTextColor(100);
+                    doc.text('Business: Clean kart drycleaners AF051 First Floor, Conscient One Mall, Dwarka Expressway, Sector 109', 40, 90);
+                    doc.setFontSize(10);
+                    doc.setTextColor(180);
+                    doc.text('https://mycleankart.in', 40, 105);
+                    doc.setFontSize(13);
+                    doc.setTextColor(40);
+                    var y = 130;
+                    doc.text('Item', 40, y);
+                    doc.text('Price (₹)', 300, y);
+                    y += 20;
+                    fetch('/prices.json').then(r => r.json()).then(prices => {
+                        Object.keys(prices).forEach(function(item) {
+                            doc.text(item, 40, y);
+                            doc.text(prices[item], 300, y);
+                            y += 18;
+                        });
+                        doc.setFontSize(14);
+                        doc.setTextColor(49,130,206);
+                        doc.text('Book your free pickup now - 8287382070', 40, y + 30);
+                        doc.save('CleanKart-Price-List.pdf');
+                    });
+                };
+        });
+    </script>
+</body>
+</html>
