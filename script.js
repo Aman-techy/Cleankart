@@ -21,14 +21,52 @@ function initializeNavigation() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
+    const body = document.body;
+
+    // Create mobile overlay backdrop
+    const overlay = document.createElement('div');
+    overlay.className = 'mobile-menu-overlay';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 998;
+    `;
+    document.body.appendChild(overlay);
 
     // Mobile menu toggle
     if (hamburger) {
         hamburger.addEventListener('click', function() {
-            hamburger.classList.toggle('active');
+            const isActive = hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
+            
+            // Toggle overlay
+            if (isActive) {
+                overlay.style.visibility = 'visible';
+                overlay.style.opacity = '1';
+                body.style.overflow = 'hidden'; // Prevent scroll
+            } else {
+                overlay.style.visibility = 'hidden';
+                overlay.style.opacity = '0';
+                body.style.overflow = '';
+            }
         });
     }
+
+    // Close menu when clicking overlay
+    overlay.addEventListener('click', function() {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        overlay.style.visibility = 'hidden';
+        overlay.style.opacity = '0';
+        body.style.overflow = '';
+    });
 
     // Close mobile menu when clicking on a link
     navLinks.forEach(link => {
@@ -36,8 +74,22 @@ function initializeNavigation() {
             if (hamburger) {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
+                overlay.style.visibility = 'hidden';
+                overlay.style.opacity = '0';
+                body.style.overflow = '';
             }
         });
+    });
+
+    // Close menu on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            overlay.style.visibility = 'hidden';
+            overlay.style.opacity = '0';
+            body.style.overflow = '';
+        }
     });
 
     // Smooth scrolling for anchor links
