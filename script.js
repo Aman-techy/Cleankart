@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeScrollEffects();
     setMinPickupDate();
     initMultiStepForm();
+    initFaqAccordion();
 });
 
 // ===== NAVIGATION FUNCTIONALITY =====
@@ -111,6 +112,50 @@ function initializeNavigation() {
 
     // Update active navigation link based on current page
     updateActiveNavLink();
+}
+
+// ===== FAQ ACCORDION =====
+function initFaqAccordion() {
+    const faqContainer = document.querySelector('#contact-faq');
+    if (!faqContainer) return;
+
+    const items = faqContainer.querySelectorAll('.faq-item');
+
+    items.forEach(item => {
+        const questionButton = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+
+        if (!questionButton || !answer) return;
+
+        questionButton.addEventListener('click', () => {
+            const isOpen = item.classList.contains('open');
+
+            // Close other items in accordion
+            items.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('open');
+                    const otherBtn = otherItem.querySelector('.faq-question');
+                    const otherAnswer = otherItem.querySelector('.faq-answer');
+                    if (otherBtn) {
+                        otherBtn.setAttribute('aria-expanded', 'false');
+                    }
+                    if (otherAnswer) {
+                        otherAnswer.hidden = true;
+                    }
+                }
+            });
+
+            if (isOpen) {
+                item.classList.remove('open');
+                questionButton.setAttribute('aria-expanded', 'false');
+                answer.hidden = true;
+            } else {
+                item.classList.add('open');
+                questionButton.setAttribute('aria-expanded', 'true');
+                answer.hidden = false;
+            }
+        });
+    });
 }
 
 function updateActiveNavLink() {
