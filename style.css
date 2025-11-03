@@ -1196,6 +1196,47 @@ a {
     }
 }
 
+@media (max-width: 768px) {
+    .hero::before,
+    .hero::after,
+    .hero-content,
+    .hero-title,
+    .hero-subtitle,
+    .hero-small,
+    .hero-small .hero-content,
+    .hero-small .hero-title,
+    .hero-small .hero-subtitle {
+        animation: none !important;
+        transform: none !important;
+    }
+
+    .hero::before,
+    .hero::after {
+        background-position: center;
+        opacity: 0.35;
+    }
+
+    .cta-button,
+    .action-button,
+    .nav-link,
+    .contact-card,
+    .meta-item {
+        transition-duration: 0.2s;
+        transform: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
 .booking-form {
     padding: 80px 0;
     background: #f8f9fa;
