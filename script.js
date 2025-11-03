@@ -301,18 +301,21 @@ async function handleContactSubmit(e) {
     formData.set('Source', 'Website Contact Form');
     formData.set('Page', window.location.href);
     formData.set('Browser', navigator.userAgent);
+    formData.set('Phone', formObject.contactPhone || 'Not provided');
 
-    if (!formData.has('Phone')) {
-        formData.set('Phone', formObject.contactPhone || 'Not provided');
+    const encodedForm = new URLSearchParams();
+    for (const [key, value] of formData.entries()) {
+        encodedForm.append(key, value);
     }
 
     try {
         const response = await fetch('https://formsubmit.co/ajax/cleankarthelp@gmail.com', {
             method: 'POST',
             headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
                 'Accept': 'application/json'
             },
-            body: formData
+            body: encodedForm.toString()
         });
 
         if (!response.ok) {
