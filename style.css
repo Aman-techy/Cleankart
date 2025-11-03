@@ -1167,8 +1167,9 @@ a {
 
 @media (max-width: 768px) {
     .hero {
-        min-height: auto;
-        padding: 120px 0 80px;
+        min-height: 72vh;
+        padding: 110px 0 70px;
+        background: linear-gradient(165deg, rgba(var(--primary-rgb), 0.92), rgba(var(--accent-rgb), 0.88));
     }
 
     .hero-content {
@@ -1190,7 +1191,26 @@ a {
 
     .hero::before,
     .hero::after {
-        opacity: 0.35;
+        opacity: 0;
+        background: none;
+        content: none;
+        animation: none;
+    }
+
+    .hero-overlay {
+        display: none;
+    }
+
+    .hero {
+        perspective: none;
+        transform-style: flat;
+    }
+
+    .hero .hero-content::before,
+    .hero-content::after {
+        content: none;
+        animation: none;
+        background: none;
     }
 
     .coming-soon-card {
@@ -1213,17 +1233,68 @@ a {
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
     .hero {
-        padding: 110px 0 60px;
+        min-height: 65vh;
+        padding: 100px 0 60px;
+        background: linear-gradient(160deg, rgba(var(--primary-rgb), 0.94), rgba(var(--accent-rgb), 0.9));
+    }
+
+    .hero::before,
+    .hero::after {
+        background: none;
+        opacity: 0;
+    }
+
+    .hero-overlay {
+        display: none;
+    }
+
+    .hero-content {
+        background: rgba(0, 0, 0, 0.1);
+        padding: 1.75rem 1.5rem;
+        border-radius: 18px;
+        gap: 1.25rem;
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
     }
 
     .hero-title {
-        font-size: 2.1rem;
+        font-size: 2rem;
+        text-shadow: none;
+        letter-spacing: -0.5px;
     }
 
     .hero-subtitle {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.92);
+        text-shadow: none;
+    }
+
+    .hero .cta-button {
+        width: 100%;
+        max-width: 260px;
+        margin: 0 auto;
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        min-height: 60vh;
+        padding: 90px 0 50px;
+    }
+
+    .hero-content {
+        padding: 1.5rem;
+    }
+
+    .hero-title {
+        font-size: 1.85rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
+        line-height: 1.55;
     }
 
     .coming-soon-card {
