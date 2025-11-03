@@ -272,22 +272,69 @@ function handleBookingSubmit(e) {
     }
 }
 
-function handleContactSubmit(e) {
+async function handleContactSubmit(e) {
     e.preventDefault();
-    
+
     const formData = new FormData(e.target);
     const formObject = Object.fromEntries(formData.entries());
-    
-    if (validateContactForm(formObject)) {
-        showLoadingState(e.target.querySelector('.submit-btn'));
-        
-        // Simulate API call
-        setTimeout(() => {
-            hideLoadingState(e.target.querySelector('.submit-btn'));
-            showSuccessMessage('Message Sent!', 
-                `Thank you ${formObject.contactName}! We've received your message and will respond within 24 hours.`);
-            e.target.reset();
-        }, 2000);
+
+    if (!validateContactForm(formObject)) {
+        return;
+    }
+
+    const submitButton = e.target.querySelector('.submit-btn');
+    showLoadingState(submitButton);
+
+    const subjectLabels = {
+        general: 'General Inquiry',
+        booking: 'Booking Support',
+        complaint: 'Complaint',
+        pricing: 'Pricing Question',
+        feedback: 'Feedback',
+        other: 'Other'
+    };
+
+    const payload = {
+        Name: formObject.contactName,
+        Email: formObject.contactEmail,
+        Phone: formObject.contactPhone || 'Not provided',
+        Subject: subjectLabels[formObject.contactSubject] || formObject.contactSubject,
+        Message: formObject.contactMessage,
+        Source: 'Website Contact Form',
+        Page: window.location.href
+    };
+
+    try {
+    const response = await fetch('https://formsubmit.co/ajax/cleankarthelp@gmail.com', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Contact form submission failed with status ${response.status}`);
+        }
+
+        await response.json();
+
+        showSuccessMessage(
+            'Message Sent!',
+            `Thank you ${formObject.contactName}! We've received your message and will respond within 24 hours.`,
+            { buttonText: 'Great!' }
+        );
+        e.target.reset();
+    } catch (error) {
+        console.error('Contact form submission error:', error);
+        showSuccessMessage(
+            'Unable to send message',
+            'Please try again in a moment or reach us directly at info@mycleankart.in or +91 8287382070.',
+            { variant: 'error', buttonText: 'Close' }
+        );
+    } finally {
+        hideLoadingState(submitButton);
     }
 }
 
@@ -546,7 +593,23 @@ function hideLoadingState(button) {
     }
 }
 
-function showSuccessMessage(title, message) {
+function showSuccessMessage(title, message, options = {}) {
+    const variant = options.variant || 'success';
+    const buttonText = options.buttonText || (variant === 'success' ? 'OK, Got It!' : 'Close');
+    const variantConfig = variant === 'error'
+        ? {
+            iconColor: '#dc3545',
+            iconClass: 'fas fa-circle-xmark',
+            titleColor: '#dc3545',
+            buttonGradient: 'linear-gradient(135deg, #dc3545, #ff6b6b)'
+        }
+        : {
+            iconColor: '#28a745',
+            iconClass: 'fas fa-check-circle',
+            titleColor: '#1E90FF',
+            buttonGradient: 'linear-gradient(135deg, #1E90FF, #28a745)'
+        };
+
     // Create modal overlay
     const overlay = document.createElement('div');
     overlay.className = 'success-modal-overlay';
@@ -579,13 +642,13 @@ function showSuccessMessage(title, message) {
     `;
     
     modal.innerHTML = `
-        <div style="color: #28a745; font-size: 4rem; margin-bottom: 1rem;">
-            <i class="fas fa-check-circle"></i>
+        <div style="color: ${variantConfig.iconColor}; font-size: 4rem; margin-bottom: 1rem;">
+            <i class="${variantConfig.iconClass}"></i>
         </div>
-        <h3 style="color: #1E90FF; margin-bottom: 1rem; font-size: 1.5rem;">${title}</h3>
+        <h3 style="color: ${variantConfig.titleColor}; margin-bottom: 1rem; font-size: 1.5rem;">${title}</h3>
         <p style="color: #666; line-height: 1.6; margin-bottom: 2rem;">${message}</p>
         <button class="close-modal-btn" style="
-            background: linear-gradient(135deg, #1E90FF, #28a745);
+            background: ${variantConfig.buttonGradient};
             color: white;
             border: none;
             padding: 12px 30px;
@@ -593,7 +656,7 @@ function showSuccessMessage(title, message) {
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-        ">OK, Got It!</button>
+        ">${buttonText}</button>
     `;
     
     overlay.appendChild(modal);
