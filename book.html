@@ -47,289 +47,93 @@
     <!-- Hero Section -->
     <section class="hero-booking">
         <div class="container">
-            <h1>Book Your Dry Cleaning Service</h1>
-            <p>Schedule a convenient pickup and delivery service for your garments with our premium service experience</p>
-            
-            <!-- Interactive Progress Steps -->
-            <div class="booking-steps">
-                <div class="step active" data-step="1">
-                    <div class="step-number">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="step-title">Personal Info</div>
-                    <div class="step-description">Your contact details</div>
-                </div>
-                <div class="step" data-step="2">
-                    <div class="step-number">
-                        <i class="fas fa-tshirt"></i>
-                    </div>
-                    <div class="step-title">Service Details</div>
-                    <div class="step-description">Choose your service</div>
-                </div>
-                <div class="step" data-step="3">
-                    <div class="step-number">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <div class="step-title">Schedule</div>
-                    <div class="step-description">Pick date & time</div>
-                </div>
-                <div class="step" data-step="4">
-                    <div class="step-number">
-                        <i class="fas fa-check"></i>
-                    </div>
-                    <div class="step-title">Confirmation</div>
-                    <div class="step-description">Review & confirm</div>
-                </div>
-            </div>
+            <h1>Online Slot Booking Launching Soon</h1>
+            <p>We are putting the finishing touches on our self-service booking experience. Until then, reach out through the options below and we will secure your preferred pickup slot right away.</p>
         </div>
     </section>
 
-    <!-- Booking Form Section -->
-    <section class="booking-form">
+    <!-- Booking Coming Soon Section -->
+    <section class="booking-coming-soon">
         <div class="container">
-            <div class="booking-content">
-                <div class="booking-info">
-                    <h2>Schedule Your Pickup</h2>
-                    <p>Fill out the form below and we'll be at your doorstep at the scheduled time.</p>
-                    
-                    <!-- Progress Bar -->
-                    <div class="form-progress">
-                        <div class="progress-fill" style="width: 25%"></div>
-                    </div>
-                    
-                    <div class="booking-features">
-                        <div class="feature-item">
-                            <i class="fas fa-clock"></i>
-                            <div>
-                                <h4>Flexible Timing</h4>
-                                <p>Choose any time slot that works for you</p>
-                            </div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-truck"></i>
-                            <div>
-                                <h4>Free Pickup</h4>
-                                <p>No charges for pickup and delivery</p>
-                            </div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-shield-alt"></i>
-                            <div>
-                                <h4>Safe & Secure</h4>
-                                <p>Your clothes are insured and tracked</p>
-                            </div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-phone"></i>
-                            <div>
-                                <h4>SMS Updates</h4>
-                                <p>Get real-time updates on your order</p>
-                            </div>
-                        </div>
-                    </div>
+            <div class="coming-soon-card">
+                <div class="coming-soon-badge">
+                    <i class="fas fa-hard-hat"></i>
+                    <span>In Progress</span>
+                </div>
+                <h2>Reserve Your Pickup While We Launch</h2>
+                <p>Our online slot booking tool goes live shortly. Until then, choose the channel that suits you best and our team will confirm your pickup slot in seconds.</p>
+
+                <div class="contact-actions">
+                    <a href="tel:+918287382070" class="cta-button action-button call-action">
+                        <i class="fas fa-phone"></i>
+                        Call Us
+                    </a>
+                    <a href="https://wa.me/918287382070?text=Hi%20Clean%20Kart%2C%20I%27d%20like%20to%20book%20a%20pickup%20slot." class="cta-button action-button whatsapp-action" target="_blank" rel="noopener">
+                        <i class="fab fa-whatsapp"></i>
+                        Chat on WhatsApp
+                    </a>
+                    <a href="https://maps.app.goo.gl/rwUDMLPdW2xaCXp99" class="cta-button action-button visit-action" target="_blank" rel="noopener">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Visit Our Store
+                    </a>
                 </div>
 
-                <div class="booking-form-container">
-                    <form id="bookingForm" class="form">
-                        <!-- Step 1: Personal Information -->
-                        <div class="form-section active" data-step="1">
-                            <h3><i class="fas fa-user"></i> Personal Information</h3>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="fullName">Full Name *</label>
-                                    <input type="text" id="fullName" name="fullName" required>
-                                    <span class="error-message" id="nameError"></span>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="phone">Phone Number *</label>
-                                    <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" placeholder="10-digit mobile number">
-                                    <span class="error-message" id="phoneError"></span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" name="email" placeholder="your@email.com">
-                                <span class="error-message" id="emailError"></span>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="address">Pickup Address *</label>
-                                <textarea id="address" name="address" rows="3" required placeholder="Enter your complete address with landmark and nearby references"></textarea>
-                                <span class="error-message" id="addressError"></span>
-                            </div>
+                <div class="contact-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Service Hours</h4>
+                            <p>Daily, 9:00 AM - 9:00 PM</p>
                         </div>
-
-                        <!-- Step 2: Service Details -->
-                        <div class="form-section" data-step="2">
-                            <h3><i class="fas fa-tshirt"></i> Service Details</h3>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="serviceType">Service Type *</label>
-                                    <select id="serviceType" name="serviceType" required>
-                                        <option value="">Select Service</option>
-                                        <option value="dry-cleaning">Dry Cleaning</option>
-                                        <option value="washing">Washing & Ironing</option>
-                                        <option value="premium">Premium Care</option>
-                                        <option value="express">Express Service</option>
-                                    </select>
-                                    <span class="error-message" id="serviceError"></span>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="itemCount">Estimated Items</label>
-                                    <select id="itemCount" name="itemCount">
-                                        <option value="1-5">1-5 items</option>
-                                        <option value="6-10">6-10 items</option>
-                                        <option value="11-20">11-20 items</option>
-                                        <option value="20+">More than 20 items</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="specialInstructions">Special Instructions</label>
-                                <textarea id="specialInstructions" name="specialInstructions" rows="3" placeholder="Any special care instructions, stain details, or preferences"></textarea>
-                            </div>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-user-check"></i>
+                        <div>
+                            <h4>Instant Confirmation</h4>
+                            <p>Pickup slots shared during the call or chat</p>
                         </div>
-
-                        <!-- Step 3: Schedule -->
-                        <div class="form-section" data-step="3">
-                            <h3><i class="fas fa-calendar-alt"></i> Schedule Pickup</h3>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="pickupDate">Pickup Date *</label>
-                                    <input type="date" id="pickupDate" name="pickupDate" required>
-                                    <span class="error-message" id="dateError"></span>
-                                </div>
-                            
-                                <div class="form-group">
-                                    <label for="pickupTime">Pickup Time *</label>
-                                    <select id="pickupTime" name="pickupTime" required>
-                                        <option value="">Select Time Slot</option>
-                                        <option value="9-11">9:00 AM - 11:00 AM</option>
-                                        <option value="11-1">11:00 AM - 1:00 PM</option>
-                                        <option value="1-3">1:00 PM - 3:00 PM</option>
-                                        <option value="3-5">3:00 PM - 5:00 PM</option>
-                                        <option value="5-7">5:00 PM - 7:00 PM</option>
-                                        <option value="7-9">7:00 PM - 9:00 PM</option>
-                                    </select>
-                                    <span class="error-message" id="timeError"></span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="deliveryDate">Preferred Delivery Date</label>
-                                <input type="date" id="deliveryDate" name="deliveryDate">
-                                <small>Leave blank for standard delivery time</small>
-                            </div>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-shield-heart"></i>
+                        <div>
+                            <h4>Premium Care</h4>
+                            <p>Trusted cleaning experts with free pickup &amp; delivery</p>
                         </div>
-
-                        <!-- Step 4: Confirmation -->
-                        <div class="form-section" data-step="4">
-                            <h3><i class="fas fa-check-circle"></i> Review & Confirm</h3>
-                            
-                            <div class="booking-summary">
-                                <div class="summary-section">
-                                    <h4>Personal Information</h4>
-                                    <div class="summary-item">
-                                        <span class="label">Name:</span>
-                                        <span class="value" id="summaryName">-</span>
-                                    </div>
-                                    <div class="summary-item">
-                                        <span class="label">Phone:</span>
-                                        <span class="value" id="summaryPhone">-</span>
-                                    </div>
-                                    <div class="summary-item">
-                                        <span class="label">Address:</span>
-                                        <span class="value" id="summaryAddress">-</span>
-                                    </div>
-                                </div>
-
-                                <div class="summary-section">
-                                    <h4>Service Details</h4>
-                                    <div class="summary-item">
-                                        <span class="label">Service:</span>
-                                        <span class="value" id="summaryService">-</span>
-                                    </div>
-                                    <div class="summary-item">
-                                        <span class="label">Items:</span>
-                                        <span class="value" id="summaryItems">-</span>
-                                    </div>
-                                </div>
-
-                                <div class="summary-section">
-                                    <h4>Schedule</h4>
-                                    <div class="summary-item">
-                                        <span class="label">Pickup Date:</span>
-                                        <span class="value" id="summaryPickupDate">-</span>
-                                    </div>
-                                    <div class="summary-item">
-                                        <span class="label">Pickup Time:</span>
-                                        <span class="value" id="summaryPickupTime">-</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="termsAgreement" required>
-                                    <span class="checkmark"></span>
-                                    I agree to the <a href="#" class="link">Terms & Conditions</a> and <a href="#" class="link">Privacy Policy</a>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Form Navigation -->
-                        <div class="form-navigation">
-                            <button type="button" class="nav-btn prev-btn" id="prevBtn" style="display: none;">
-                                <i class="fas fa-arrow-left"></i> Previous
-                            </button>
-                            <button type="button" class="nav-btn next-btn" id="nextBtn">
-                                Next <i class="fas fa-arrow-right"></i>
-                            </button>
-                            <button type="submit" class="nav-btn submit-btn" id="submitBtn" style="display: none;">
-                                <i class="fas fa-paper-plane"></i> Book Pickup
-                            </button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
-            <!-- Pricing Quick Reference -->
             <div class="pricing-reference">
                 <h3>Quick Pricing Reference</h3>
                 <div class="price-grid">
                     <div class="price-item">
                         <span class="item-name">Shirt</span>
-                        <span class="item-price">₹50</span>
+                        <span class="item-price">₹100+</span>
                     </div>
                     <div class="price-item">
                         <span class="item-name">Trouser</span>
-                        <span class="item-price">₹70</span>
+                        <span class="item-price">₹100+</span>
                     </div>
                     <div class="price-item">
                         <span class="item-name">Saree</span>
-                        <span class="item-price">₹150</span>
+                        <span class="item-price">₹200+</span>
                     </div>
                     <div class="price-item">
                         <span class="item-name">Suit</span>
-                        <span class="item-price">₹300</span>
+                        <span class="item-price">₹200-500</span>
                     </div>
                     <div class="price-item">
                         <span class="item-name">Jacket</span>
-                        <span class="item-price">₹250</span>
+                        <span class="item-price">₹150+</span>
                     </div>
                     <div class="price-item">
                         <span class="item-name">Dress</span>
-                        <span class="item-price">₹180</span>
+                        <span class="item-price">₹200-450</span>
                     </div>
                 </div>
-                <p class="pricing-note">* Free pickup and delivery included</p>
+                <p class="pricing-note">* Free pickup and delivery included </p>
+                <p> *prices are subject to change based on fabric type and condition.
+                </p>
             </div>
         </div>
     </section>

@@ -975,6 +975,227 @@ a {
 }
 
 /* ===== BOOKING PAGE STYLES ===== */
+.booking-coming-soon {
+    padding: 120px 0 80px;
+    background: #f8f9fa;
+}
+
+.coming-soon-card {
+    background: #fff;
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(var(--primary-rgb), 0.08);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 3rem;
+}
+
+.coming-soon-card::after {
+    content: '';
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle, rgba(var(--accent-rgb), 0.18), transparent 70%);
+    z-index: 0;
+}
+
+.coming-soon-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.coming-soon-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(var(--accent-rgb), 0.12);
+    color: var(--accent);
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.75rem;
+}
+
+.coming-soon-badge i {
+    font-size: 1rem;
+}
+
+.coming-soon-card h2 {
+    color: var(--primary);
+    margin-top: 1.5rem;
+}
+
+.contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2.5rem 0 2rem;
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 1rem;
+    padding: 16px 28px;
+    border-radius: 18px;
+    min-width: 220px;
+    justify-content: center;
+}
+
+.action-button i {
+    font-size: 1.2rem;
+}
+
+.action-button.call-action {
+    background: linear-gradient(135deg, var(--primary), #1d6ef2);
+    box-shadow: 0 15px 35px rgba(var(--primary-rgb), 0.3);
+}
+
+.action-button.call-action:hover {
+    background: linear-gradient(135deg, #1d6ef2, var(--accent));
+}
+
+.action-button.whatsapp-action {
+    background: linear-gradient(135deg, #25d366, #1ebe5d);
+    box-shadow: 0 15px 35px rgba(37, 211, 102, 0.35);
+}
+
+.action-button.whatsapp-action:hover {
+    background: linear-gradient(135deg, #1ebe5d, #159c47);
+}
+
+.action-button.visit-action {
+    background: linear-gradient(135deg, #ff7a18, #ffb547);
+    box-shadow: 0 15px 35px rgba(255, 122, 24, 0.35);
+}
+
+.action-button.visit-action:hover {
+    background: linear-gradient(135deg, #ff9340, #ff7a18);
+}
+
+.contact-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+}
+
+.meta-item {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 18px;
+    padding: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.meta-item i {
+    font-size: 1.5rem;
+    color: var(--accent);
+}
+
+.meta-item h4 {
+    margin-bottom: 0.3rem;
+}
+
+.pricing-reference {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 24px;
+    padding: 2.5rem 3rem;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.08),
+        0 0 0 1px rgba(var(--primary-rgb), 0.05);
+}
+
+.pricing-reference h3 {
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.price-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.price-item {
+    background: #fff;
+    border-radius: 18px;
+    padding: 1.3rem 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+
+.price-item .item-name {
+    color: #555;
+}
+
+.price-item .item-price {
+    color: var(--primary);
+}
+
+.pricing-note {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+@media (max-width: 992px) {
+    .coming-soon-card {
+        padding: 2.5rem;
+    }
+    .contact-meta {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .coming-soon-card {
+        padding: 2.2rem;
+        text-align: center;
+    }
+    .contact-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .action-button {
+        width: 100%;
+    }
+    .contact-meta {
+        grid-template-columns: 1fr;
+    }
+    .meta-item {
+        justify-content: center;
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .coming-soon-card {
+        padding: 2rem;
+    }
+    .action-button {
+        padding: 14px 24px;
+        font-size: 0.95rem;
+    }
+}
+
 .booking-form {
     padding: 80px 0;
     background: #f8f9fa;
@@ -3365,7 +3586,6 @@ body {
 /* Improve tap highlight */
 * {
     -webkit-tap-highlight-color: rgba(30, 144, 255, 0.2);
-    tap-highlight-color: rgba(30, 144, 255, 0.2);
 }
 
 /* Remove input zoom on iOS */

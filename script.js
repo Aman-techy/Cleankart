@@ -743,13 +743,22 @@ console.log('Clean Kart website scripts loaded successfully!');
 // ===== MULTI-STEP BOOKING FORM =====
 // Initialize multi-step form
 function initMultiStepForm() {
+    const bookingFormElement = document.getElementById('bookingForm');
+    const nextButton = document.getElementById('nextBtn');
+    const prevButton = document.getElementById('prevBtn');
+    const progressFill = document.querySelector('.progress-fill');
+
+    if (!bookingFormElement || !nextButton || !prevButton || !progressFill) {
+        return;
+    }
+
     updateStepUI();
     updateProgressBar();
     setMinDate();
     
     // Navigation event listeners
-    document.getElementById('nextBtn').addEventListener('click', nextStep);
-    document.getElementById('prevBtn').addEventListener('click', prevStep);
+    nextButton.addEventListener('click', nextStep);
+    prevButton.addEventListener('click', prevStep);
     
     // Form validation on input
     addInputValidation();
