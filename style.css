@@ -204,7 +204,7 @@ a {
 
 /* ===== HERO SECTION ===== */
 .hero {
-    height: 100vh;
+    min-height: 100vh;
     background: 
         linear-gradient(135deg, rgba(var(--primary-rgb), 0.85) 0%, rgba(var(--accent-rgb), 0.8) 100%),
         radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
@@ -1166,6 +1166,33 @@ a {
 }
 
 @media (max-width: 768px) {
+    .hero {
+        min-height: auto;
+        padding: 120px 0 80px;
+    }
+
+    .hero-content {
+        padding: 0;
+        animation: none;
+    }
+
+    .hero-title {
+        font-size: 2.4rem;
+        margin-bottom: 0.8rem;
+        animation: none;
+    }
+
+    .hero-subtitle {
+        font-size: 1.05rem;
+        margin-bottom: 1.5rem;
+        animation: none;
+    }
+
+    .hero::before,
+    .hero::after {
+        opacity: 0.35;
+    }
+
     .coming-soon-card {
         padding: 2.2rem;
         text-align: center;
@@ -1187,6 +1214,18 @@ a {
 }
 
 @media (max-width: 480px) {
+    .hero {
+        padding: 110px 0 60px;
+    }
+
+    .hero-title {
+        font-size: 2.1rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
     .coming-soon-card {
         padding: 2rem;
     }
