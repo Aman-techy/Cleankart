@@ -294,24 +294,25 @@ async function handleContactSubmit(e) {
         other: 'Other'
     };
 
-    const payload = {
-        Name: formObject.contactName,
-        Email: formObject.contactEmail,
-        Phone: formObject.contactPhone || 'Not provided',
-        Subject: subjectLabels[formObject.contactSubject] || formObject.contactSubject,
-        Message: formObject.contactMessage,
-        Source: 'Website Contact Form',
-        Page: window.location.href
-    };
+    const subjectLabel = subjectLabels[formObject.contactSubject] || formObject.contactSubject;
+    formData.set('contactSubject', subjectLabel);
+    formData.set('Subject', subjectLabel);
+    formData.set('_subject', `Clean Kart Website Contact • ${subjectLabel}`);
+    formData.set('Source', 'Website Contact Form');
+    formData.set('Page', window.location.href);
+    formData.set('Browser', navigator.userAgent);
+
+    if (!formData.has('Phone')) {
+        formData.set('Phone', formObject.contactPhone || 'Not provided');
+    }
 
     try {
-    const response = await fetch('https://formsubmit.co/ajax/cleankarthelp@gmail.com', {
+        const response = await fetch('https://formsubmit.co/ajax/cleankarthelp@gmail.com', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify(payload)
+            body: formData
         });
 
         if (!response.ok) {
