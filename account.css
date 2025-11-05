@@ -1,0 +1,401 @@
+/* Account page styles */
+:root {
+    --account-primary: #0f4cfd;
+    --account-secondary: #0fb9b1;
+    --account-dark: #0a3d62;
+    --account-muted: rgba(10, 61, 98, 0.65);
+    --account-light: #f4f8ff;
+    --account-card-shadow: 0 25px 60px rgba(15, 76, 253, 0.1);
+}
+
+body {
+    background: radial-gradient(circle at 20% 20%, rgba(15, 76, 253, 0.08), transparent 55%),
+                radial-gradient(circle at 80% 10%, rgba(15, 185, 177, 0.12), transparent 60%),
+                var(--account-light);
+    color: var(--account-dark);
+}
+
+.account-hero {
+    background: linear-gradient(145deg, rgba(15, 76, 253, 0.92), rgba(15, 185, 177, 0.88));
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.account-hero::before,
+.account-hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(0);
+    opacity: 0.55;
+    z-index: 0;
+}
+
+.account-hero::before {
+    width: 420px;
+    height: 420px;
+    top: -220px;
+    right: -160px;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.35), transparent 70%);
+}
+
+.account-hero::after {
+    width: 320px;
+    height: 320px;
+    bottom: -160px;
+    left: -120px;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.22), transparent 65%);
+}
+
+.account-hero .hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.account-hero .hero-title {
+    font-size: clamp(2.6rem, 5vw, 3.8rem);
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+}
+
+.account-hero .hero-subtitle {
+    max-width: 540px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.account-main {
+    position: relative;
+    padding: clamp(4rem, 8vw, 6rem) 0;
+    background: transparent;
+}
+
+.account-main::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 25% 20%, rgba(15, 76, 253, 0.08), transparent 55%),
+                radial-gradient(circle at 80% 65%, rgba(15, 185, 177, 0.08), transparent 60%);
+    z-index: 0;
+}
+
+.account-grid {
+    position: relative;
+    z-index: 1;
+    max-width: min(960px, 90vw);
+    margin: 0 auto;
+    display: grid;
+    gap: clamp(2rem, 4vw, 3rem);
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    align-items: stretch;
+}
+
+.account-card,
+.account-dashboard {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(244, 248, 255, 0.92));
+    padding: clamp(2rem, 4vw, 2.75rem);
+    box-shadow: var(--account-card-shadow);
+    border: 1px solid rgba(15, 76, 253, 0.08);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    animation: accountRise 0.8s ease forwards;
+}
+
+.account-card::before,
+.account-dashboard::before {
+    content: '';
+    position: absolute;
+    inset: -40% -20% auto -40%;
+    height: 220px;
+    background: linear-gradient(135deg, rgba(15, 76, 253, 0.12), transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.account-card::after,
+.account-dashboard::after {
+    content: '';
+    position: absolute;
+    inset: auto -45% -50% auto;
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle, rgba(15, 185, 177, 0.15), transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.account-card:hover,
+.account-dashboard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 70px rgba(15, 76, 253, 0.16);
+}
+
+.account-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    animation-delay: 0.1s;
+}
+
+.account-card > *,
+.account-dashboard > * {
+    position: relative;
+    z-index: 1;
+}
+
+@supports (backdrop-filter: blur(18px)) {
+    .account-card,
+    .account-dashboard {
+        background: rgba(255, 255, 255, 0.82);
+        backdrop-filter: blur(18px);
+    }
+}
+
+.account-card h2,
+.account-dashboard h2 {
+    font-size: clamp(1.8rem, 3vw, 2.1rem);
+    margin-bottom: 1rem;
+    color: var(--account-dark);
+}
+
+.account-intro-text {
+    color: var(--account-muted);
+    margin-bottom: 2.4rem;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.google-signin-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem 2.2rem;
+    border-radius: 999px;
+    border: 1px solid rgba(15, 76, 253, 0.18);
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.98), rgba(244, 248, 255, 0.94));
+    color: var(--account-dark);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    box-shadow: 0 18px 45px rgba(15, 76, 253, 0.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    z-index: 0;
+}
+
+.google-signin-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(15, 76, 253, 0.18), rgba(15, 185, 177, 0.18));
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    z-index: -1;
+}
+
+.google-signin-btn i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(244, 248, 255, 0.55));
+    color: #ea4335;
+    font-size: 1.2rem;
+}
+
+.google-signin-btn:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 22px 55px rgba(15, 76, 253, 0.18);
+    border-color: rgba(15, 76, 253, 0.38);
+}
+
+.google-signin-btn:hover::after {
+    opacity: 1;
+}
+
+.google-signin-btn:focus-visible {
+    outline: 3px solid rgba(15, 185, 177, 0.55);
+    outline-offset: 4px;
+}
+
+.google-signin-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    border-color: rgba(15, 76, 253, 0.12);
+}
+
+.signin-disclaimer {
+    margin-top: 1.6rem;
+    font-size: 0.92rem;
+    color: rgba(10, 61, 98, 0.62);
+}
+
+.account-status {
+    min-height: 1.25rem;
+    font-size: 0.98rem;
+    color: rgba(10, 61, 98, 0.82);
+    margin-top: 1.5rem;
+    padding: 0.65rem 1rem;
+    border-radius: 12px;
+    background: rgba(15, 76, 253, 0.06);
+}
+
+#accountStatus:empty {
+    display: none;
+}
+
+.account-status[data-variant="error"] {
+    color: #b02a37;
+    background: rgba(176, 42, 55, 0.12);
+}
+
+.account-status[data-variant="success"] {
+    color: #0f7a4d;
+    background: rgba(17, 140, 79, 0.12);
+}
+
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-secondary,
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.9rem 1.8rem;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    text-decoration: none;
+}
+
+.btn-secondary {
+    border: 1px solid rgba(15, 76, 253, 0.25);
+    background: rgba(15, 185, 177, 0.14);
+    color: var(--account-primary);
+}
+
+.btn-primary {
+    border: none;
+    background: linear-gradient(135deg, var(--account-primary), var(--account-secondary));
+    color: #ffffff;
+    box-shadow: 0 18px 40px rgba(15, 76, 253, 0.22);
+}
+
+.btn-secondary:hover,
+.btn-primary:hover {
+    transform: translateY(-3px);
+}
+
+.dashboard-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.75rem;
+    margin-bottom: 2rem;
+}
+
+.meta-card {
+    position: relative;
+    padding: 1.7rem;
+    border-radius: 18px;
+    background: rgba(15, 76, 253, 0.06);
+    color: var(--account-dark);
+    overflow: hidden;
+}
+
+.meta-card::after {
+    content: '';
+    position: absolute;
+    inset: auto -40% -50% auto;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(15, 185, 177, 0.18), transparent 70%);
+}
+
+.meta-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+}
+
+.meta-card ul {
+    padding-left: 1.1rem;
+    margin: 0;
+    color: var(--account-muted);
+    line-height: 1.65;
+}
+
+.meta-card li::marker {
+    color: rgba(15, 76, 253, 0.45);
+}
+
+.meta-card p {
+    color: var(--account-muted);
+    margin-bottom: 0.4rem;
+}
+
+#accountDashboard[hidden] {
+    display: none !important;
+}
+
+@keyframes accountRise {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 1024px) {
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+    .account-card,
+    .account-dashboard {
+        padding: 1.9rem;
+    }
+
+    .account-main {
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .google-signin-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .dashboard-meta {
+        grid-template-columns: 1fr;
+    }
+
+    .meta-card {
+        padding: 1.4rem;
+    }
+}
