@@ -37,44 +37,60 @@ h4 { font-size: 1.25rem; }
 p {
     margin-bottom: 1rem;
     color: #666;
-.google-signin-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    border: 1px solid rgba(10, 61, 98, 0.18);
-    border-radius: 999px;
-    padding: 0.9rem 1.8rem;
-    background: #ffffff;
-    color: #0a3d62;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 16px 36px rgba(15, 76, 253, 0.12);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.google-signin-btn i {
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    text-align: center;
     font-size: 1.1rem;
-    color: #ea4335;
+    color: #666;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.google-signin-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 18px 40px rgba(15, 76, 253, 0.18);
+.cta-button {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    padding: 18px 35px;
+    border-radius: 35px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.4s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 8px 20px rgba(var(--primary-rgb), 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: perspective(500px) rotateX(0deg);
 }
 
-.google-signin-btn:disabled {
-    opacity: 0.65;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-.signin-disclaimer {
-    margin-top: 1.4rem;
-    font-size: 0.9rem;
-    color: rgba(10, 61, 98, 0.6);
-}
+.cta-button::before {
     content: '';
     position: absolute;
     top: 0;
@@ -3004,228 +3020,6 @@ body.theme-slate {
     color: #666;
     line-height: 1.6;
     margin-bottom: 0.8rem;
-}
-
-/* ===== ACCOUNT PAGE ===== */
-.account-hero {
-    background: linear-gradient(135deg, rgba(15, 185, 177, 0.85), rgba(15, 76, 253, 0.8)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect width="1200" height="600" fill="%23081549" opacity="0.12"/><circle cx="300" cy="200" r="120" fill="%230FB9B1" opacity="0.26"/><circle cx="920" cy="360" r="160" fill="%230F4CFD" opacity="0.22"/><path d="M320 420c40-60 120-100 200-80s140 100 220 120 180-20 240-80" stroke="%230FB9B1" stroke-width="32" stroke-linecap="round" opacity="0.18"/></svg>');
-    background-size: cover;
-    background-position: center;
-}
-
-.account-main {
-    background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
-    padding: 5rem 0;
-}
-
-.account-grid {
-    max-width: 960px;
-    margin: 0 auto;
-    display: grid;
-    gap: 2.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    align-items: start;
-}
-
-.account-card,
-.account-dashboard {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 2.5rem;
-    box-shadow: 0 25px 60px rgba(15, 76, 253, 0.08);
-    border: 1px solid rgba(15, 185, 177, 0.08);
-}
-
-.account-dashboard {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.account-card h2,
-.account-dashboard h2 {
-    font-size: 1.85rem;
-    margin-bottom: 1rem;
-    color: #0a3d62;
-}
-
-.account-intro-text {
-    color: rgba(10, 61, 98, 0.7);
-    margin-bottom: 2rem;
-}
-
-.account-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 1.75rem;
-}
-
-[hidden] {
-    display: none !important;
-}
-
-.account-form label.form-label {
-    font-weight: 600;
-    color: #0a3d62;
-}
-
-.input-group {
-    display: flex;
-    align-items: center;
-    border: 1px solid rgba(10, 61, 98, 0.18);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.input-group:focus-within {
-    border-color: rgba(15, 76, 253, 0.5);
-    box-shadow: 0 0 0 4px rgba(15, 76, 253, 0.12);
-}
-
-.input-prefix {
-    background: rgba(15, 76, 253, 0.08);
-    color: #0f4cfd;
-    font-weight: 600;
-    padding: 0.75rem 1rem;
-    display: inline-flex;
-    align-items: center;
-}
-
-.account-form input[type="tel"],
-.account-form input[type="text"] {
-    flex: 1;
-    border: none;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    outline: none;
-    background: #ffffff;
-}
-
-.account-form input[type="tel"]::placeholder,
-.account-form input[type="text"]::placeholder {
-    color: rgba(10, 61, 98, 0.4);
-}
-
-.form-hint {
-    font-size: 0.9rem;
-    color: rgba(10, 61, 98, 0.6);
-}
-
-.btn-primary,
-.btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    padding: 0.85rem 1.6rem;
-    border-radius: 999px;
-    font-weight: 600;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, #0f4cfd, #0fb9b1);
-    color: #ffffff;
-    box-shadow: 0 12px 30px rgba(15, 76, 253, 0.25);
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 34px rgba(15, 76, 253, 0.3);
-}
-
-.btn-primary:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-.btn-secondary {
-    background: rgba(15, 185, 177, 0.12);
-    color: #0f4cfd;
-    border: 1px solid rgba(15, 76, 253, 0.25);
-}
-
-.btn-secondary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(15, 185, 177, 0.22);
-}
-
-.account-status {
-    min-height: 1.25rem;
-    font-size: 0.95rem;
-    color: rgba(10, 61, 98, 0.8);
-    margin-top: 1.2rem;
-}
-
-.account-status[data-variant="error"] {
-    color: #b02a37;
-}
-
-.account-status[data-variant="success"] {
-    color: #118c4f;
-}
-
-.dashboard-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.dashboard-meta {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.meta-card {
-    padding: 1.5rem;
-    border-radius: 16px;
-    background: rgba(15, 76, 253, 0.06);
-    color: #0a3d62;
-}
-
-.meta-card h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.75rem;
-}
-
-.meta-card ul {
-    padding-left: 1.2rem;
-    margin: 0;
-    color: rgba(10, 61, 98, 0.7);
-    line-height: 1.6;
-}
-
-.meta-card p {
-    color: rgba(10, 61, 98, 0.7);
-    margin-bottom: 0.35rem;
-}
-
-@media (max-width: 768px) {
-    .account-card,
-    .account-dashboard {
-        padding: 1.75rem;
-    }
-
-    .otp-actions {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .dashboard-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
 }
 
 /* WhatsApp CTA Button */
