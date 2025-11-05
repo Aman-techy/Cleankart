@@ -1,4 +1,4 @@
-// Firebase phone authentication handling for account page
+// Firebase Google authentication handling for account page
 (function () {
     const firebaseConfig = {
         apiKey: "AIzaSyAAhFuR-yu1muEMkvBmdQ1xYEpy2Y8tM0s",
@@ -20,9 +20,8 @@
     }
 
     const auth = firebase.auth();
-    let currentConfirmationResult = null;
-    let recaptchaVerifier = null;
-    let resendTimeout = null;
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    googleProvider.setCustomParameters({ prompt: 'select_account' });
 
     function qs(selector) {
         return document.querySelector(selector);
@@ -33,10 +32,10 @@
         element.hidden = !show;
     }
 
-    function setStatus(message, variant = 'info') {
+    function setStatus(message = '', variant = 'info') {
         const statusEl = qs('#accountStatus');
         if (!statusEl) return;
-        statusEl.textContent = message || '';
+        statusEl.textContent = message;
         statusEl.dataset.variant = variant;
     }
 
@@ -52,97 +51,78 @@
         }
     }
 
-    function formatPhoneNumber(number) {
-        return number ? `+91${number}` : null;
+    function showDashboard(user) {
+        const authSection = qs('#accountAuthSection');
+        const dashboard = qs('#accountDashboard');
+        const displayNameEl = qs('#userDisplayName');
+        const emailEl = qs('#userEmailLabel');
+        const lastLoginEl = qs('#userLastLogin');
+
+        setElementVisibility(authSection, false);
+        setElementVisibility(dashboard, true);
+
+        const displayName = user?.displayName || user?.email?.split('@')[0] || 'Clean Kart Member';
+        const email = user?.email || 'Not shared';
+        const lastSignInTime = user?.metadata?.lastSignInTime;
+
+        if (displayNameEl) {
+            displayNameEl.textContent = `Signed in as: ${displayName}`;
+        }
+        if (emailEl) {
+            emailEl.textContent = `Email: ${email}`;
+        }
+        if (lastLoginEl) {
+            lastLoginEl.textContent = `Last login: ${lastSignInTime ? new Date(lastSignInTime).toLocaleString() : 'Just now'}`;
+        }
+
+        setStatus('');
     }
 
-    function resetOtpForm() {
-        const otpForm = qs('#otpForm');
-        if (otpForm) {
-            otpForm.reset();
-            setElementVisibility(otpForm, false);
-        }
-        currentConfirmationResult = null;
-        if (resendTimeout) {
-            clearTimeout(resendTimeout);
-            resendTimeout = null;
-        }
-        const resendBtn = qs('#resendOtpButton');
-        if (resendBtn) {
-            resendBtn.disabled = false;
-        }
+    function showAuthView() {
+        const authSection = qs('#accountAuthSection');
+        const dashboard = qs('#accountDashboard');
+        const signInButton = qs('#googleSignInButton');
+
+        setElementVisibility(authSection, true);
+        setElementVisibility(dashboard, false);
+        disableButton(signInButton, false);
+        setStatus('');
     }
 
-    function initRecaptcha() {
-        if (recaptchaVerifier) {
-            recaptchaVerifier.clear();
-        }
+    function signInWithGoogle() {
+        const signInButton = qs('#googleSignInButton');
+        disableButton(signInButton, true, 'Connecting…');
+        setStatus('Opening Google sign-in…');
 
-        recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-            size: 'invisible',
-        });
-
-        return recaptchaVerifier;
-    }
-
-    function sendOtp(phoneNumber) {
-        const sendButton = qs('#sendOtpButton');
-        disableButton(sendButton, true, 'Sending…');
-        setStatus('Sending OTP…');
-
-        const verifier = initRecaptcha();
-        return auth.signInWithPhoneNumber(phoneNumber, verifier)
+        return auth.signInWithPopup(googleProvider)
             .then(result => {
-                currentConfirmationResult = result;
-                setStatus('OTP sent! Enter the 6-digit code.');
-                setElementVisibility(qs('#otpForm'), true);
-                qs('#otpCode').focus({ preventScroll: true });
-                const resendBtn = qs('#resendOtpButton');
-                if (resendBtn) {
-                    resendBtn.disabled = true;
-                    resendTimeout = setTimeout(() => {
-                        resendBtn.disabled = false;
-                    }, 30000);
+                if (result.user) {
+                    setStatus('Signed in successfully!', 'success');
                 }
             })
             .catch(error => {
-                console.error('Error sending OTP:', error);
-                setStatus(parseFirebaseError(error), 'error');
-                resetOtpForm();
-                if (recaptchaVerifier) {
-                    recaptchaVerifier.render().then(widgetId => {
-                        grecaptcha.reset(widgetId);
-                    });
+                console.error('Google sign-in error:', error);
+
+                if (error.code === 'auth/popup-blocked') {
+                    setStatus('Popup blocked. Redirecting to Google…', 'info');
+                    return auth.signInWithRedirect(googleProvider);
                 }
-            })
-            .finally(() => {
-                disableButton(sendButton, false);
-            });
-    }
 
-    function verifyOtp(otpCode) {
-        const verifyButton = qs('#verifyOtpButton');
-        disableButton(verifyButton, true, 'Verifying…');
-        setStatus('Verifying code…');
+                if (error.code === 'auth/popup-closed-by-user') {
+                    setStatus('Sign-in window was closed before completion.', 'error');
+                    return null;
+                }
 
-        if (!currentConfirmationResult) {
-            setStatus('OTP session expired. Please request a new code.', 'error');
-            resetOtpForm();
-            disableButton(verifyButton, false);
-            return Promise.reject(new Error('confirmationResult missing'));
-        }
+                if (error.code === 'auth/cancelled-popup-request') {
+                    setStatus('Another sign-in attempt is already running. Please wait a moment.', 'info');
+                    return null;
+                }
 
-        return currentConfirmationResult.confirm(otpCode)
-            .then(result => {
-                setStatus('Signed in successfully!', 'success');
-                showDashboard(result.user);
-            })
-            .catch(error => {
-                console.error('Error verifying OTP:', error);
                 setStatus(parseFirebaseError(error), 'error');
+                return null;
             })
             .finally(() => {
-                disableButton(verifyButton, false);
+                disableButton(signInButton, false);
             });
     }
 
@@ -152,127 +132,59 @@
         }
 
         switch (error.code) {
-            case 'auth/invalid-phone-number':
-                return 'Invalid phone number. Please check and try again.';
-            case 'auth/too-many-requests':
-                return 'Too many attempts. Please wait a moment before retrying.';
-            case 'auth/code-expired':
-                return 'OTP expired. Request a new one.';
-            case 'auth/invalid-verification-code':
-                return 'Incorrect OTP. Please check the code and try again.';
-            case 'auth/missing-verification-code':
-                return 'Enter the OTP sent to your phone.';
-            case 'auth/quota-exceeded':
-                return 'SMS quota exceeded. Try again later.';
-            case 'auth/app-not-authorized':
-                return 'This domain is not authorized for phone sign-in. Add your site to Firebase Authentication → Authorized domains.';
-            case 'auth/invalid-app-credential':
-            case 'auth/missing-app-credential':
-                return 'reCAPTCHA validation failed. Refresh the page and try again.';
             case 'auth/network-request-failed':
                 return 'Network error. Check your connection and try again.';
-            case 'auth/internal-error':
-                return 'Firebase encountered an internal error. Check console logs for details.';
+            case 'auth/popup-blocked':
+                return 'Your browser blocked the popup. Allow popups for this site and try again.';
+            case 'auth/popup-closed-by-user':
+                return 'The sign-in window was closed before completing the process.';
+            case 'auth/cancelled-popup-request':
+                return 'Another sign-in attempt was already in progress.';
+            case 'auth/unauthorized-domain':
+                return 'This domain is not authorized for Google sign-in. Add it under Firebase Authentication → Authorized domains.';
+            case 'auth/account-exists-with-different-credential':
+                return 'This email is already linked to a different sign-in method.';
             default:
                 return `${error.message || 'Unable to complete request.'} (${error.code})`;
         }
     }
 
-    function showDashboard(user) {
-        const authSection = qs('#accountAuthSection');
-        const dashboard = qs('#accountDashboard');
-        const phoneLabel = qs('#userPhoneLabel');
-        const lastLogin = qs('#userLastLogin');
-
-        if (authSection) setElementVisibility(authSection, false);
-        if (dashboard) setElementVisibility(dashboard, true);
-        if (phoneLabel) {
-            const phoneNumber = user?.phoneNumber || 'Unknown';
-            phoneLabel.textContent = `Phone: ${phoneNumber}`;
-        }
-        if (lastLogin) {
-            const lastSignInTime = user?.metadata?.lastSignInTime;
-            lastLogin.textContent = `Last login: ${lastSignInTime ? new Date(lastSignInTime).toLocaleString() : 'Just now'}`;
-        }
-    }
-
-    function showAuthForms() {
-        setElementVisibility(qs('#accountAuthSection'), true);
-        setElementVisibility(qs('#accountDashboard'), false);
-        const phoneForm = qs('#phoneLoginForm');
-        if (phoneForm) {
-            phoneForm.reset();
-        }
-        resetOtpForm();
-        setStatus('');
-    }
-
     document.addEventListener('DOMContentLoaded', () => {
-        const phoneForm = qs('#phoneLoginForm');
-        const otpForm = qs('#otpForm');
-        const resendBtn = qs('#resendOtpButton');
-        const signOutBtn = qs('#signOutButton');
+        const signInButton = qs('#googleSignInButton');
+        const signOutButton = qs('#signOutButton');
 
-        if (phoneForm) {
-            phoneForm.addEventListener('submit', event => {
-                event.preventDefault();
-                const phoneInput = qs('#phoneNumber');
-                if (!phoneInput) return;
-
-                const rawNumber = phoneInput.value.replace(/\D/g, '');
-                if (!/^\d{10}$/.test(rawNumber)) {
-                    setStatus('Enter a valid 10-digit mobile number.', 'error');
-                    phoneInput.focus();
-                    return;
-                }
-
-                sendOtp(formatPhoneNumber(rawNumber));
+        if (signInButton) {
+            signInButton.addEventListener('click', () => {
+                signInWithGoogle();
             });
         }
 
-        if (otpForm) {
-            otpForm.addEventListener('submit', event => {
-                event.preventDefault();
-                const otpInput = qs('#otpCode');
-                if (!otpInput) return;
-
-                const otpCode = otpInput.value.trim();
-                if (!/^\d{4,6}$/.test(otpCode)) {
-                    setStatus('Enter the 6-digit OTP sent to your phone.', 'error');
-                    otpInput.focus();
-                    return;
-                }
-
-                verifyOtp(otpCode);
-            });
-        }
-
-        if (resendBtn) {
-            resendBtn.addEventListener('click', () => {
-                const phoneInput = qs('#phoneNumber');
-                if (!phoneInput) return;
-                const rawNumber = phoneInput.value.replace(/\D/g, '');
-                if (!/^\d{10}$/.test(rawNumber)) {
-                    setStatus('Enter a valid mobile number before resending OTP.', 'error');
-                    return;
-                }
-                sendOtp(formatPhoneNumber(rawNumber));
-            });
-        }
-
-        if (signOutBtn) {
-            signOutBtn.addEventListener('click', () => {
-                auth.signOut().catch(err => {
-                    console.error('Error signing out:', err);
+        if (signOutButton) {
+            signOutButton.addEventListener('click', () => {
+                setStatus('Signing out…');
+                auth.signOut().catch(error => {
+                    console.error('Error signing out:', error);
+                    setStatus(parseFirebaseError(error), 'error');
                 });
             });
         }
+
+        auth.getRedirectResult()
+            .then(result => {
+                if (result.user) {
+                    setStatus('Signed in successfully!', 'success');
+                }
+            })
+            .catch(error => {
+                console.error('Redirect sign-in error:', error);
+                setStatus(parseFirebaseError(error), 'error');
+            });
 
         auth.onAuthStateChanged(user => {
             if (user) {
                 showDashboard(user);
             } else {
-                showAuthForms();
+                showAuthView();
             }
         });
     });

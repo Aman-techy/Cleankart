@@ -51,33 +51,14 @@
             <div class="account-grid">
                 <section class="account-card" id="accountAuthSection" aria-live="polite">
                     <h2>Sign in to Clean Kart</h2>
-                    <p class="account-intro-text">Use your mobile number to receive a one-time password (OTP) and access your account.</p>
+                    <p class="account-intro-text">Connect with your Google account to manage bookings, access future perks, and keep everything in sync.</p>
 
-                    <form id="phoneLoginForm" class="account-form" novalidate>
-                        <label for="phoneNumber" class="form-label">Mobile Number</label>
-                        <div class="input-group">
-                            <span class="input-prefix">+91</span>
-                            <input type="tel" id="phoneNumber" name="phoneNumber" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" placeholder="Enter 10-digit number" required>
-                        </div>
-                        <p class="form-hint">We'll send an OTP to this number for verification.</p>
-                        <button type="submit" class="btn-primary" id="sendOtpButton">
-                            <i class="fas fa-paper-plane"></i>
-                            Send OTP
-                        </button>
-                        <div id="recaptcha-container" class="recaptcha-container" aria-hidden="true"></div>
-                    </form>
+                    <button type="button" class="google-signin-btn" id="googleSignInButton">
+                        <i class="fab fa-google" aria-hidden="true"></i>
+                        Continue with Google
+                    </button>
 
-                    <form id="otpForm" class="account-form" hidden novalidate>
-                        <label for="otpCode" class="form-label">Enter OTP</label>
-                        <input type="text" id="otpCode" name="otpCode" inputmode="numeric" pattern="[0-9]{4,6}" maxlength="6" placeholder="6-digit code" required>
-                        <div class="otp-actions">
-                            <button type="submit" class="btn-primary" id="verifyOtpButton">
-                                <i class="fas fa-unlock-keyhole"></i>
-                                Verify OTP
-                            </button>
-                            <button type="button" class="btn-link" id="resendOtpButton">Resend OTP</button>
-                        </div>
-                    </form>
+                    <p class="signin-disclaimer">We only use your email to personalize your experience. No spam—promise.</p>
 
                     <div class="account-status" id="accountStatus" role="status"></div>
                 </section>
@@ -93,15 +74,16 @@
                     <div class="dashboard-meta">
                         <div class="meta-card">
                             <h3>Your Profile</h3>
-                            <p id="userPhoneLabel">Phone: —</p>
+                            <p id="userDisplayName">Signed in as: —</p>
+                            <p id="userEmailLabel">Email: —</p>
                             <p id="userLastLogin">Last login: —</p>
                         </div>
                         <div class="meta-card">
                             <h3>Next Steps</h3>
                             <ul>
-                                <li>View and track upcoming pickups (coming soon)</li>
-                                <li>Update delivery preferences</li>
-                                <li>Download invoices and receipts</li>
+                                <li>Track upcoming pickups and deliveries (coming soon)</li>
+                                <li>Save preferred addresses and delivery notes</li>
+                                <li>Download invoices and receipts instantly</li>
                             </ul>
                         </div>
                     </div>
@@ -163,7 +145,6 @@
 
     <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore-compat.js"></script>
     <script src="auth.js"></script>
     <script src="script.js"></script>
 </body>
