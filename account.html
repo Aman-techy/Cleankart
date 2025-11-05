@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Account - Clean Kart</title>
+    <meta name="description" content="Access your Clean Kart account to manage orders, profile, and support.">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="logo">
+                    <a href="index.html">Clean Kart</a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
+                    <li class="nav-item"><a href="book.html" class="nav-link">Book Pickup</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="account.html" class="nav-link active">Account</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-small account-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Your Account</h1>
+            <p class="hero-subtitle">Sign in with your phone number to manage bookings and stay updated.</p>
+        </div>
+        <div class="hero-overlay"></div>
+    </section>
+
+    <!-- Account Section -->
+    <main class="account-main">
+        <div class="container">
+            <div class="account-grid">
+                <section class="account-card" id="accountAuthSection" aria-live="polite">
+                    <h2>Sign in to Clean Kart</h2>
+                    <p class="account-intro-text">Use your mobile number to receive a one-time password (OTP) and access your account.</p>
+
+                    <form id="phoneLoginForm" class="account-form" novalidate>
+                        <label for="phoneNumber" class="form-label">Mobile Number</label>
+                        <div class="input-group">
+                            <span class="input-prefix">+91</span>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" placeholder="Enter 10-digit number" required>
+                        </div>
+                        <p class="form-hint">We'll send an OTP to this number for verification.</p>
+                        <button type="submit" class="btn-primary" id="sendOtpButton">
+                            <i class="fas fa-paper-plane"></i>
+                            Send OTP
+                        </button>
+                        <div id="recaptcha-container" class="recaptcha-container" aria-hidden="true"></div>
+                    </form>
+
+                    <form id="otpForm" class="account-form" hidden novalidate>
+                        <label for="otpCode" class="form-label">Enter OTP</label>
+                        <input type="text" id="otpCode" name="otpCode" inputmode="numeric" pattern="[0-9]{4,6}" maxlength="6" placeholder="6-digit code" required>
+                        <div class="otp-actions">
+                            <button type="submit" class="btn-primary" id="verifyOtpButton">
+                                <i class="fas fa-unlock-keyhole"></i>
+                                Verify OTP
+                            </button>
+                            <button type="button" class="btn-link" id="resendOtpButton">Resend OTP</button>
+                        </div>
+                    </form>
+
+                    <div class="account-status" id="accountStatus" role="status"></div>
+                </section>
+
+                <section class="account-dashboard" id="accountDashboard" hidden aria-live="polite">
+                    <div class="dashboard-header">
+                        <h2>Welcome back!</h2>
+                        <button type="button" class="btn-secondary" id="signOutButton">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Sign Out
+                        </button>
+                    </div>
+                    <div class="dashboard-meta">
+                        <div class="meta-card">
+                            <h3>Your Profile</h3>
+                            <p id="userPhoneLabel">Phone: —</p>
+                            <p id="userLastLogin">Last login: —</p>
+                        </div>
+                        <div class="meta-card">
+                            <h3>Next Steps</h3>
+                            <ul>
+                                <li>View and track upcoming pickups (coming soon)</li>
+                                <li>Update delivery preferences</li>
+                                <li>Download invoices and receipts</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="book.html" class="btn-primary">
+                        <i class="fas fa-calendar-check"></i>
+                        Book a Pickup
+                    </a>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Clean Kart</h3>
+                    <p>Premium dry cleaning service at your doorstep. We care for your clothes with expert attention.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="book.html">Book Pickup</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="account.html">Account</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone"></i> +91 8287382070</p>
+                        <p><i class="fas fa-envelope"></i> info@mycleankart.in</p>
+                        <p><i class="fas fa-map-marker-alt"></i> AF051 First Floor, Conscient One Mall, Dwarka Expy, Sector 109, Gurugram, Haryana 122006</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Clean Kart. All rights reserved. | mycleankart.in</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="whatsapp-cta">
+        <a href="https://wa.me/918287382070?text=Hi! I want to know more about Clean Kart dry cleaning services." class="whatsapp-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span>Chat Now</span>
+        </a>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore-compat.js"></script>
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
