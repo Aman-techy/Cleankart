@@ -164,8 +164,17 @@
                 return 'Enter the OTP sent to your phone.';
             case 'auth/quota-exceeded':
                 return 'SMS quota exceeded. Try again later.';
+            case 'auth/app-not-authorized':
+                return 'This domain is not authorized for phone sign-in. Add your site to Firebase Authentication → Authorized domains.';
+            case 'auth/invalid-app-credential':
+            case 'auth/missing-app-credential':
+                return 'reCAPTCHA validation failed. Refresh the page and try again.';
+            case 'auth/network-request-failed':
+                return 'Network error. Check your connection and try again.';
+            case 'auth/internal-error':
+                return 'Firebase encountered an internal error. Check console logs for details.';
             default:
-                return 'Unable to complete request. Please try again later.';
+                return `${error.message || 'Unable to complete request.'} (${error.code})`;
         }
     }
 
