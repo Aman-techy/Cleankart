@@ -718,7 +718,7 @@ function initializeScrollEffects() {
     }, observerOptions);
     
     // Observe elements for animation
-    const animatedElements = document.querySelectorAll('.feature-card, .service-card, .pricing-card, .contact-card');
+    const animatedElements = document.querySelectorAll('.feature-card, .service-card, .pricing-card, .price-card, .contact-card, .offer-card');
     animatedElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';

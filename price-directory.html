@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Price Directory | Clean Kart</title>
+    <link rel="canonical" href="https://mycleankart.in/price-directory.html">
+    <meta name="description" content="Browse, search, and download the complete Clean Kart dry cleaning price directory.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-oxnGI0DyAJhDigw1VE3D6Z0SqnX+ANXoy2cuglRez2oJ6TP2PzefRg2fzGEylh4G6dkprdFM5lTyBC0bWR72hA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="price-directory.css">
+</head>
+<body>
+    <div class="guide-background" aria-hidden="true"></div>
+
+    <header class="guide-header">
+        <nav class="guide-nav" aria-label="Primary">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" aria-hidden="true">CK</span>
+                <span class="brand-name">Clean Kart</span>
+            </a>
+            <div class="nav-actions">
+                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link" href="services.html">Services</a>
+                <a class="nav-link active" href="pricing.html">Pricing</a>
+                <a class="nav-cta" href="book.html">Book Pickup</a>
+            </div>
+        </nav>
+        <div class="guide-hero">
+            <span class="hero-eyebrow"><i class="fas fa-layer-group" aria-hidden="true"></i> Complete price intelligence</span>
+            <h1>Clean Kart price directory</h1>
+            <p>Search every garment we care for, compare service categories, and export a tailored rate sheet for your team in seconds.</p>
+            <div class="hero-meta">
+                <span><i class="fas fa-indian-rupee-sign" aria-hidden="true"></i> Transparent, tax-inclusive pricing</span>
+                <span><i class="fas fa-clock" aria-hidden="true"></i> Updated: <time datetime="2025-07-01">July 2025</time></span>
+                <span><i class="fas fa-file-download" aria-hidden="true"></i> Instant PDF export</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="guide-main">
+        <section class="search-panel" id="search">
+            <div class="panel-header">
+                <h2>Find rates instantly</h2>
+                <p>Start typing a garment, fabric, or category to filter the list. All matches update live.</p>
+            </div>
+            <div class="search-control" role="search">
+                <label class="sr-only" for="priceSearchInput">Search price list</label>
+                <i class="fas fa-search search-icon" aria-hidden="true"></i>
+                <input id="priceSearchInput" type="search" placeholder="Search e.g. saree, blazer, curtain" autocomplete="off" aria-describedby="searchHelper">
+                <button type="button" class="clear-btn" id="clearSearch" aria-label="Clear search">Clear</button>
+            </div>
+            <p id="searchHelper" class="helper-text">Tip: Use the shortcuts below to jump into a category.</p>
+            <div class="category-filters" role="group" aria-label="Filter by category">
+                <button type="button" class="category-chip active" data-category="all">All items</button>
+                <button type="button" class="category-chip" data-category="everyday">Everyday wear</button>
+                <button type="button" class="category-chip" data-category="occasion">Occasion & couture</button>
+                <button type="button" class="category-chip" data-category="outerwear">Outerwear</button>
+                <button type="button" class="category-chip" data-category="home">Home & bulk care</button>
+                <button type="button" class="category-chip" data-category="accessories">Accessories</button>
+                <button type="button" class="category-chip" data-category="special">Special care</button>
+            </div>
+            <div class="suggestions" id="searchSuggestions" aria-live="polite"></div>
+        </section>
+
+        <section class="results-meta" aria-live="polite">
+            <div>
+                <span id="resultCount">Loading price directory…</span>
+                <span class="meta-divider" aria-hidden="true">•</span>
+                <span class="meta-note">Live search & animated highlights</span>
+            </div>
+            <button type="button" class="result-reset" id="resetFilters">
+                <i class="fas fa-rotate" aria-hidden="true"></i> Reset filters
+            </button>
+        </section>
+
+        <section class="table-shell" aria-labelledby="directoryTitle">
+            <div class="table-wrapper" role="region" aria-live="polite" aria-busy="true">
+                <table class="price-directory" aria-describedby="resultCount">
+                    <caption id="directoryTitle" class="sr-only">Clean Kart full price directory</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Price (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="priceDirectoryBody"></tbody>
+                </table>
+            </div>
+            <div class="empty-state" id="emptyState" hidden>
+                <div class="empty-icon" aria-hidden="true"><i class="fas fa-search"></i></div>
+                <h3>No matches yet</h3>
+                <p>Try a different search term, remove filters, or explore another category.</p>
+                <button type="button" class="ghost-btn" id="emptyStateReset">Show all items</button>
+            </div>
+        </section>
+
+        <section class="download-panel" id="download">
+            <div class="download-copy">
+                <h2>Need a shareable sheet?</h2>
+                <p>Export your filtered view as a polished PDF or send the link to teammates. Ideal for reception desks and concierge partners.</p>
+            </div>
+            <div class="download-actions">
+                <button type="button" id="downloadPdfBtn" class="primary-download">
+                    <i class="fas fa-file-arrow-down" aria-hidden="true"></i> Download current view (PDF)
+                </button>
+                <a class="secondary-download" href="pricing.html">
+                    <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to pricing overview
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="guide-footer">
+        <div class="footer-brand">
+            <span class="brand-mark" aria-hidden="true">CK</span>
+            <div>
+                <h3>Clean Kart</h3>
+                <p>AF051 First Floor, Conscient One Mall, Dwarka Expy, Sector 109, Gurugram, Haryana 122006</p>
+            </div>
+        </div>
+        <div class="footer-contact">
+            <a href="tel:+918287382070"><i class="fas fa-phone" aria-hidden="true"></i> +91 8287382070</a>
+            <a href="mailto:info@mycleankart.in"><i class="fas fa-envelope" aria-hidden="true"></i> info@mycleankart.in</a>
+            <a href="https://wa.me/918287382070" target="_blank" rel="noopener"><i class="fab fa-whatsapp" aria-hidden="true"></i> Chat on WhatsApp</a>
+        </div>
+    </footer>
+
+    <script id="price-directory-fallback" type="application/json">
+    {
+        "T-Shirt": "100",
+        "Shirt": "100",
+        "Trousers / Jeans": "100",
+        "Suit": "250",
+        "Blazer": "200",
+        "Jacket": "150-200",
+        "Leather Jacket": "350-500",
+        "Hoodie / Sweatshirt": "160",
+        "Cardigan / Pullover": "150-200",
+        "Sherwani": "450-750",
+        "Kurta": "120-200",
+        "Overcoat / Long Coat": "250-300",
+        "Top": "100",
+        "Skirt": "120-150",
+        "Trouser / Slacks": "100",
+        "Shawl": "180-250",
+        "Pashmina Shawl": "350-600",
+        "Formal Suit": "280",
+        "Long Coat": "250-500",
+        "Dress / Haute Couture": "200-600",
+        "Plain Suit": "200-250",
+        "Suit with Embroidery": "270-400",
+        "Saree Plain / Silk": "200",
+        "Saree with Embroidery": "280-700",
+        "Blouse": "80-110",
+        "Lehenga": "400-1000",
+        "Hand Towel": "80",
+        "Table Cover": "100-180",
+        "Cushion Cover": "40-110",
+        "Bed Sheet (Single / Double)": "150-200",
+        "Bed Spread (Single / Double)": "240-260",
+        "Blanket / Quilt Single": "300-350",
+        "Blanket / Quilt Double": "350-400",
+        "Curtain without Double (Per Panel)": "150-200",
+        "Curtain with Lining (Per Panel)": "200-250",
+        "Carpet / Rugs (Per Sq. Ft)": "30",
+        "Sofa (Per seat)": "300-600"
+    }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-Y1s9wGQKzBSSMSmc5QwDFi1Cdm42Hcps225y7sY9qsK0kGugHgdGXNqBJ38qRAjPR9U1FVLtZLZ16I4QJbP6vg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+    (() => {
+        const categoryMap = {
+            'T-Shirt': 'everyday',
+            'Shirt': 'everyday',
+            'Trousers / Jeans': 'everyday',
+            'Top': 'everyday',
+            'Kurta': 'everyday',
+            'Hoodie / Sweatshirt': 'everyday',
+            'Cardigan / Pullover': 'everyday',
+            'Trouser / Slacks': 'everyday',
+            'Suit': 'occasion',
+            'Blazer': 'occasion',
+            'Formal Suit': 'occasion',
+            'Plain Suit': 'occasion',
+            'Suit with Embroidery': 'occasion',
+            'Dress / Haute Couture': 'occasion',
+            'Sherwani': 'occasion',
+            'Saree Plain / Silk': 'occasion',
+            'Saree with Embroidery': 'occasion',
+            'Lehenga': 'occasion',
+            'Overcoat / Long Coat': 'outerwear',
+            'Long Coat': 'outerwear',
+            'Jacket': 'outerwear',
+            'Leather Jacket': 'outerwear',
+            'Shawl': 'accessories',
+            'Pashmina Shawl': 'accessories',
+            'Blouse': 'accessories',
+            'Hand Towel': 'accessories',
+            'Table Cover': 'accessories',
+            'Cushion Cover': 'accessories',
+            'Bed Sheet (Single / Double)': 'home',
+            'Bed Spread (Single / Double)': 'home',
+            'Blanket / Quilt Single': 'home',
+            'Blanket / Quilt Double': 'home',
+            'Curtain without Double (Per Panel)': 'home',
+            'Curtain with Lining (Per Panel)': 'home',
+            'Carpet / Rugs (Per Sq. Ft)': 'home',
+            'Sofa (Per seat)': 'home'
+        };
+
+        const categoryLabels = {
+            everyday: 'Everyday wear',
+            occasion: 'Occasion & couture',
+            outerwear: 'Outerwear',
+            home: 'Home & bulk care',
+            accessories: 'Accessories',
+            special: 'Special care'
+        };
+
+        const priceBody = document.getElementById('priceDirectoryBody');
+        const searchInput = document.getElementById('priceSearchInput');
+        const resultCount = document.getElementById('resultCount');
+        const suggestions = document.getElementById('searchSuggestions');
+        const resetFiltersBtn = document.getElementById('resetFilters');
+        const clearSearchBtn = document.getElementById('clearSearch');
+        const emptyState = document.getElementById('emptyState');
+        const emptyStateReset = document.getElementById('emptyStateReset');
+        const tableWrapper = document.querySelector('.table-wrapper');
+        const categoryButtons = Array.from(document.querySelectorAll('.category-chip'));
+        const downloadBtn = document.getElementById('downloadPdfBtn');
+
+        const state = {
+            items: [],
+            filtered: [],
+            searchTerm: '',
+            activeCategory: 'all'
+        };
+
+        const formatPrice = (value) => {
+            const raw = String(value).trim();
+            if (!raw) {
+                return '--';
+            }
+            const hasCurrency = raw.startsWith('\u20B9') || raw.toLowerCase().startsWith('rs');
+            return hasCurrency ? raw.replace(/^rs\.?\s?/i, '\u20B9') : `\u20B9${raw}`;
+        };
+
+        const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+        const highlightMatch = (text, query) => {
+            if (!query) {
+                return text;
+            }
+            const pattern = new RegExp(`(${escapeRegex(query)})`, 'ig');
+            return text.replace(pattern, '<mark>$1</mark>');
+        };
+
+        const deriveCategory = (itemName) => {
+            return categoryMap[itemName] || 'special';
+        };
+
+        const buildDataset = (priceMap) => {
+            return Object.entries(priceMap)
+                .filter(([name]) => Boolean(name))
+                .map(([name, price]) => {
+                    const categoryKey = deriveCategory(name);
+                    return {
+                        name,
+                        price,
+                        priceLabel: formatPrice(price),
+                        category: categoryKey,
+                        categoryLabel: categoryLabels[categoryKey] || categoryLabels.special
+                    };
+                })
+                .sort((a, b) => a.name.localeCompare(b.name));
+        };
+
+        const renderRows = (items) => {
+            priceBody.innerHTML = '';
+
+            if (!items.length) {
+                emptyState.hidden = false;
+                tableWrapper.setAttribute('aria-busy', 'false');
+                resultCount.textContent = 'No garments match your filters yet.';
+                return;
+            }
+
+            emptyState.hidden = true;
+            tableWrapper.setAttribute('aria-busy', 'false');
+            const fragment = document.createDocumentFragment();
+
+            items.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.style.setProperty('--fade-delay', `${index * 40}ms`);
+                row.innerHTML = `
+                    <td data-label="Item">${highlightMatch(item.name, state.searchTerm)}</td>
+                    <td data-label="Category"><span class="category-pill category-${item.category}">${item.categoryLabel}</span></td>
+                    <td data-label="Price">${item.priceLabel}</td>`;
+                fragment.appendChild(row);
+            });
+
+            priceBody.appendChild(fragment);
+            resultCount.textContent = `${items.length} ${items.length === 1 ? 'item' : 'items'} shown`;
+        };
+
+        const updateSuggestions = (items) => {
+            if (!state.searchTerm) {
+                suggestions.innerHTML = '';
+                suggestions.classList.remove('has-suggestions');
+                return;
+            }
+
+            const term = state.searchTerm.toLowerCase();
+            const matches = items
+                .filter(item => item.name.toLowerCase().includes(term))
+                .slice(0, 5);
+
+            if (!matches.length) {
+                suggestions.innerHTML = '';
+                suggestions.classList.remove('has-suggestions');
+                return;
+            }
+
+            suggestions.classList.add('has-suggestions');
+            suggestions.innerHTML = matches.map(match => `
+                <button type="button" class="suggestion" data-suggestion="${match.name}">
+                    <i class="fas fa-arrow-turn-down-left" aria-hidden="true"></i>
+                    <span>${highlightMatch(match.name, state.searchTerm)}</span>
+                </button>
+            `).join('');
+        };
+
+        const applyFilters = () => {
+            const term = state.searchTerm.trim().toLowerCase();
+            const category = state.activeCategory;
+
+            let filtered = state.items;
+
+            if (category !== 'all') {
+                filtered = filtered.filter(item => item.category === category);
+            }
+
+            if (term) {
+                filtered = filtered.filter(item =>
+                    item.name.toLowerCase().includes(term) ||
+                    item.categoryLabel.toLowerCase().includes(term)
+                );
+            }
+
+            state.filtered = filtered;
+            renderRows(filtered);
+            updateSuggestions(filtered.length ? filtered : state.items);
+        };
+
+        const setCategory = (categoryKey) => {
+            state.activeCategory = categoryKey;
+            categoryButtons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.category === categoryKey);
+            });
+            applyFilters();
+        };
+
+        const loadFallbackData = () => {
+            const fallbackEl = document.getElementById('price-directory-fallback');
+            if (!fallbackEl) {
+                return [];
+            }
+            try {
+                const data = JSON.parse(fallbackEl.textContent || fallbackEl.innerText || '{}');
+                return buildDataset(data);
+            } catch (error) {
+                console.error('Unable to parse inline price directory fallback.', error);
+                return [];
+            }
+        };
+
+        const initialiseData = (dataset) => {
+            state.items = dataset;
+            tableWrapper.setAttribute('aria-busy', 'false');
+            applyFilters();
+        };
+
+        const fetchLiveData = () => {
+            if (window.location.protocol === 'file:') {
+                initialiseData(loadFallbackData());
+                return;
+            }
+
+            fetch('prices.json', { cache: 'no-store' })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to load prices.json (${response.status})`);
+                    }
+                    return response.json();
+                })
+                .then(priceJson => {
+                    const dataset = buildDataset(priceJson);
+                    if (!dataset.length) {
+                        initialiseData(loadFallbackData());
+                        return;
+                    }
+                    initialiseData(dataset);
+                })
+                .catch(error => {
+                    console.error('Unable to retrieve live price data.', error);
+                    const fallbackData = loadFallbackData();
+                    if (fallbackData.length) {
+                        initialiseData(fallbackData);
+                    } else {
+                        resultCount.textContent = 'Pricing is temporarily unavailable. Please try again later.';
+                        tableWrapper.setAttribute('aria-busy', 'false');
+                    }
+                });
+        };
+
+        const resetSearch = () => {
+            state.searchTerm = '';
+            searchInput.value = '';
+            suggestions.innerHTML = '';
+            suggestions.classList.remove('has-suggestions');
+            applyFilters();
+            searchInput.focus();
+        };
+
+        const resetAll = () => {
+            state.searchTerm = '';
+            state.activeCategory = 'all';
+            searchInput.value = '';
+            suggestions.innerHTML = '';
+            suggestions.classList.remove('has-suggestions');
+            categoryButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.category === 'all'));
+            applyFilters();
+        };
+
+        const handleSuggestionClick = (event) => {
+            const button = event.target.closest('button[data-suggestion]');
+            if (!button) {
+                return;
+            }
+            const value = button.dataset.suggestion;
+            searchInput.value = value;
+            state.searchTerm = value;
+            applyFilters();
+            suggestions.innerHTML = '';
+            suggestions.classList.remove('has-suggestions');
+        };
+
+        searchInput.addEventListener('input', (event) => {
+            state.searchTerm = event.target.value;
+            applyFilters();
+        });
+
+        clearSearchBtn.addEventListener('click', resetSearch);
+        resetFiltersBtn.addEventListener('click', resetAll);
+        emptyStateReset.addEventListener('click', resetAll);
+        suggestions.addEventListener('click', handleSuggestionClick);
+
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                setCategory(button.dataset.category);
+            });
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            if (!state.filtered.length) {
+                return;
+            }
+
+            if (!window.jspdf || !window.jspdf.jsPDF) {
+                console.error('jsPDF library is unavailable.');
+                return;
+            }
+
+            const doc = new window.jspdf.jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
+            const marginLeft = 48;
+            let cursorY = 72;
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(20);
+            doc.setTextColor(31, 44, 69);
+            doc.text('Clean Kart price directory', marginLeft, cursorY);
+
+            cursorY += 20;
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(11);
+            doc.setTextColor(90);
+            doc.text(`Exported on ${new Date().toLocaleDateString()}`, marginLeft, cursorY);
+
+            cursorY += 24;
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(12);
+            doc.setTextColor(25, 103, 210);
+            doc.text(`${state.filtered.length} ${state.filtered.length === 1 ? 'item' : 'items'} in view`, marginLeft, cursorY);
+
+            cursorY += 20;
+            doc.setDrawColor(230);
+            doc.line(marginLeft, cursorY, doc.internal.pageSize.getWidth() - marginLeft, cursorY);
+            cursorY += 24;
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(12);
+            doc.setTextColor(255);
+            doc.setFillColor(31, 44, 69);
+            doc.rect(marginLeft, cursorY - 14, doc.internal.pageSize.getWidth() - marginLeft * 2, 24, 'F');
+            doc.text('Item', marginLeft + 12, cursorY + 2);
+            doc.text('Category', marginLeft + 212, cursorY + 2);
+            doc.text('Price (₹)', marginLeft + 392, cursorY + 2);
+            cursorY += 22;
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(11);
+            doc.setTextColor(50);
+
+            const lineHeight = 18;
+
+            state.filtered.forEach(item => {
+                if (cursorY > doc.internal.pageSize.getHeight() - 72) {
+                    doc.addPage();
+                    cursorY = 72;
+                }
+
+                doc.text(item.name, marginLeft + 12, cursorY, { maxWidth: 180 });
+                doc.text(item.categoryLabel, marginLeft + 212, cursorY, { maxWidth: 160 });
+                doc.text(item.priceLabel.replace(/^\u20B9/, '₹ '), marginLeft + 392, cursorY);
+                cursorY += lineHeight;
+            });
+
+            cursorY += 16;
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(12);
+            doc.setTextColor(25, 103, 210);
+            doc.text('Need a concierge rate or bulk quote? Call +91 8287382070', marginLeft, cursorY);
+
+            doc.save('CleanKart-price-directory.pdf');
+        });
+
+        fetchLiveData();
+    })();
+    </script>
+</body>
+</html>
